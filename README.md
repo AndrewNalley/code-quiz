@@ -18,6 +18,8 @@ https://simplestepscode.com/javascript-quiz-tutorial/
 
 https://www.sitepoint.com/simple-javascript-quiz/
 
+https://www.codewithrandom.com/2023/02/18/quiz-apps-using-javascript/
+
 
 For questions:
 https://www.w3schools.com/quiztest/quiztest.asp?qtest=JS
