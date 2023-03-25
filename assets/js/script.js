@@ -1,32 +1,29 @@
 var startButton = document.getElementById("start");
-startButton.addEventListener("click", function() {
-    displayQuestion();
-});
 var quizContainer = document.getElementById("quiz-container");
+var questionElement = document.getElementById("question");
+var answerContainer = document.getElementById("answers");
 var resultsContainer = document.getElementById("score");
-var questionsEl = document.getElementById("question");
-var answersEl = document.getElementById("answers")
 var currentQuestionIndex = 0;
 
 function displayQuestion() {
     var currentQuestion = quizQuestions[currentQuestionIndex];
-    questionsEl.textContent = currentQuestion.question;
-    answersEl.innerHTML = "";
-    currentQuestion.answers.forEach(function (answer) {
-        var button = document.createElement("button");
-        button.textContent = answer;
-        button.addEventListener("click", function () {
-            checkAnswer(answer);
+    questionElement.textContent = currentQuestion.question;
+    answerContainer.innerHTML = "";
+    currentQuestion.options.forEach(function (option) {
+        var answerButton = document.createElement("button");
+        answerButton.textContent = option;
+        answerButton.addEventListener("click", function () {
+            checkAnswer(option);
         });
-        answersEl.appendChild(button);
+        answerContainer.appendChild(answerButton);
     });
 }
 
 function checkAnswer(selectedOption) {
     var currentQuestion = quizQuestions[currentQuestionIndex];
-    if (selectedOption === currentQuestion.answer) {
+    if (selectedOption === currentQuestion.correctAnswer) {
         alert("Correct!");
-    }   else {
+    } else {
         alert("Incorrect.");
     }
     currentQuestionIndex++;
@@ -40,94 +37,98 @@ function checkAnswer(selectedOption) {
 var quizQuestions = [
     {
         question: "How do you declare a JavaScript variable?",
-        answers: {
-            a: "v ~ myVariable",
-            b: "declare myVariable",
-            c: "variable !",
-            d: "var myVariable"
-        },
-        correctAnswer: "d"
+        options: [
+            "v ~ myVariable",
+            "declare myVariable",
+            "variable !",
+            "var myVariable"
+        ],
+        correctAnswer: "var myVariable"
     },
     {
         question: "How do you insert a comment in JavaScript that has more than one line?",
-        answers: {
-            a: ">> My comment here <<",
-            b: "/* My comment here */",
-            c: "<!-- My comment here -->",
-            d: "{ My comment here }"
-        },
-        correctAnswer: "b"
+        options: [
+            ">> My comment here <<",
+            "/* My comment here */",
+            "<!-- My comment here -->",
+            "{ My comment here }"
+        ],
+        correctAnswer: "/* My comment here */"
     },
     {
         question: "Who invented JavaScript?",
-        answers: {
-            a: "Douglas Crockford",
-            b: "Sheryl Sandberg",
-            c: "Tim Cook",
-            d: "Brendan Eich"
-        },
-        correctAnswer: "d"
+        options: [
+            "Douglas Crockford",
+            "Sheryl Sandberg",
+            "Tim Cook",
+            "Brendan Eich"
+        ],
+        correctAnswer: "Brendan Eich"
     },
     {
         question: "What does API stand for?",
-        answers: {
-            a: "Access Program Intelligence",
-            b: "Account Policy Interchange",
-            c: "Application Programming Interface",
-            d: "Actionable Portage Inference"
-        },
-        correctAnswer: "c"
+        options: [
+            "Access Program Intelligence",
+            "Account Policy Interchange",
+            "Application Programming Interface",
+            "Actionable Portage Inference"
+        ],
+        correctAnswer: "Application Programming Interface"
     },
     {
         question: "What is the correct way to write a JavaScript array?",
-        answers: {
-            a: "var myArray = arr{1, 2, 3}",
-            b: "var myArray = <1, 2, 3>",
-            c: "var myArray = [1, 2, 3]",
-            d: "var myArray = arr(1, 2, 3)"
-        },
-        correctAnswer: "c"
+        options: [
+            "var myArray = arr{1, 2, 3}",
+            "var myArray = <1, 2, 3>",
+            "var myArray = [1, 2, 3]",
+            "var myArray = arr(1, 2, 3)"
+        ],
+        correctAnswer: "var myArray = [1, 2, 3]"
     },
     {
         question: "Inside what HTML element do we put the JavaScript?",
-        answers: {
-            a: "<script>",
-            b: "<js>",
-            c: "<javascript>",
-            d: "<src>"
-        },
-        correctAnswer: "a"
+        options: [
+            "<script>",
+            "<js>",
+            "<javascript>",
+            "<src>"
+        ],
+        correctAnswer: "<script>"
     },
     {
         question: "How can you add a single-line comment in a JavaScript?",
-        answers: {
-            a: "// My comment here",
-            b: "<!-- My comment here -->",
-            c: "https:// My comment here .com",
-            d: ">> My comment here"
-        },
-        correctAnswer: "a"
+        options: [
+            "// My comment here",
+            "<!-- My comment here -->",
+            "https:// My comment here .com",
+            ">> My comment here"
+        ],
+        correctAnswer: "// My comment here"
     },
     {
         question: "Which operator is used to assign a value to a variable?",
-        answers: {
-            a: "~",
-            b: "=",
-            c: "!",
-            d: "#"
-        },
-        correctAnswer: "b"
+        options: [
+            "~",
+            "=",
+            "!",
+            "#"
+        ],
+        correctAnswer: "="
     },
     {
         question: "What does DOM stand for?",
-        answers: {
-            a: "Data Origin Management",
-            b: "Document Origin Management",
-            c: "Data Object Model",
-            d: "Document Object Model"
-        },
-        correctAnswer: "d"
+        options: [
+            "Data Origin Management",
+            "Document Origin Management",
+            "Data Object Model",
+            "Document Object Model"
+        ],
+        correctAnswer: "Document Object Model"
     },
 ];
+
+startButton.addEventListener("click", function () {
+    displayQuestion();
+});
 
 
