@@ -18,6 +18,21 @@ function displayQuestion() {
     });
 }
 
+function checkAnswer(selectedOption) {
+    var currentQuestion = quizQuestions[currentQuestionIndex];
+    if (selectedOption === currentQuestion.answer) {
+        alert("Correct!");
+    }   else {
+        alert("Incorrect.");
+    }
+    currentQuestionIndex++;
+    if (currentQuestionIndex >= quizQuestions.length) {
+        alert("Complete! Check your score!")
+    } else {
+        displayQuestion();
+    }
+}
+
 var quizQuestions = [
     {
         question: "How do you declare a JavaScript variable?",
