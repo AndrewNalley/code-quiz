@@ -12,6 +12,12 @@ Score logs to local memory. Can go back or clear high scores.
 
 
 
-Sources:  
+Guides/Sources:  
 
 https://simplestepscode.com/javascript-quiz-tutorial/
+
+https://www.sitepoint.com/simple-javascript-quiz/
+
+
+For questions:
+https://www.w3schools.com/quiztest/quiztest.asp?qtest=JS
