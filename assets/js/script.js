@@ -1,5 +1,22 @@
 var quizContainer = document.getElementById("quiz-container");
 var resultsContainer = document.getElementById("score");
+var questionsEl = document.getElementById("question");
+var answersEl = document.getElementById("answers")
+var currentQuestionIndex = 0;
+
+function displayQuestion() {
+    var currentQuestion = quizQuestions[currentQuestionIndex];
+    questionsEl.textContent = currentQuestion.question;
+    answersEl.innerHTML = "";
+    currentQuestion.answers.forEach(function (answer) {
+        var button = document.createElement("button");
+        button.textContent = answer;
+        button.addEventListener("click", function () {
+            checkAnswer(answer);
+        });
+        answersEl.appendChild(button);
+    });
+}
 
 var quizQuestions = [
     {
