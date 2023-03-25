@@ -1,3 +1,7 @@
+var startButton = document.getElementById("start");
+startButton.addEventListener("click", function() {
+    displayQuestion();
+});
 var quizContainer = document.getElementById("quiz-container");
 var resultsContainer = document.getElementById("score");
 var questionsEl = document.getElementById("question");
