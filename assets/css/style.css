@@ -1,0 +1,14 @@
+* {
+    display: flexbox;
+}
+body {
+    flex:auto;
+    height: fit-content;
+    width: fit-content;
+}
+
+#quiz-container {
+    display: flexbox;
+    height: 300px;
+    width: 300px;
+}
