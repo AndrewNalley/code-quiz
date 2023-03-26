@@ -7,13 +7,13 @@ var timerEl = document.getElementById("timer");
 var showScoreButton = document.getElementById("show-score");
 var currentQuestionIndex = 0;
 var userAnswers = 0;
-var timerInterval = 60;
+var timeLeft = 60;
 
 function startTimer() {
     timerInterval = setInterval(function () {
         if (timeLeft > 0) {
             timeLeft--;
-            timerEl.textContent = "Time left: " + timeLeft + " seconds";
+            timerEl.textContent = "Time left: " + timeLeft + " second(s)";
         } else {
             clearInterval(timerInterval);
             alert("Time's up!");
@@ -42,6 +42,7 @@ function checkAnswer(selectedOption) {
         userAnswers++;
     } else {
         alert("Incorrect.");
+        timeLeft = timeLeft - 10;
     }
     currentQuestionIndex++;
     if (currentQuestionIndex >= quizQuestions.length) {
@@ -146,7 +147,7 @@ var quizQuestions = [
 
 
 startButton.addEventListener("click", function () {
-    displayQuestion();
     startTimer();
+    displayQuestion();
 });
 submitButton.addEventListener("click", alert("Your score is: " + score));
