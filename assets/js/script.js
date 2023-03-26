@@ -2,6 +2,7 @@ var startButton = document.getElementById("start");
 var quizContainer = document.getElementById("quiz-container");
 var questionEl = document.getElementById("question");
 var answerContainer = document.getElementById("answers");
+var answerResultEl = document.getElementById("answer result")
 var resultsContainer = document.getElementById("score");
 var timerEl = document.getElementById("timer");
 var showScoreButton = document.getElementById("show-score");
@@ -38,10 +39,10 @@ function displayQuestion() {
 function checkAnswer(selectedOption) {
     var currentQuestion = quizQuestions[currentQuestionIndex];
     if (selectedOption === currentQuestion.correctAnswer) {
-        alert("Correct!");
+        answerResultEl.textContent = "Correct!";
         userAnswers++;
     } else {
-        alert("Incorrect.");
+        answerResultEl.textContent = "Incorrect.";
         timeLeft = timeLeft - 10;
     }
     currentQuestionIndex++;
