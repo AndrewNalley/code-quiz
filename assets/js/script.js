@@ -12,12 +12,18 @@ var timeLeft = 60;
 
 function startTimer() {
     timerInterval = setInterval(function () {
-        if (timeLeft > 0) {
+        if (timeLeft > 11 && timeLeft < 61) {
             timeLeft--;
-            timerEl.textContent = "Time left: " + timeLeft + " second(s)";
-        } else {
+            timerEl.textContent = "Time left: " + timeLeft + " seconds.";
+        } else if (timeLeft >= 3 && timeLeft < 12) {
+            timeLeft--;
+            timerEl.textContent = "TIME LEFT: " + timeLeft + " SECONDS! HURRY UP!";
+        } else if (timeLeft >= 1) {
+            timeLeft--;
+            timerEl.textContent = "TIME LEFT: " + timeLeft + " SECOND! HURRY UP!";
+         } else {
             clearInterval(timerInterval);
-            alert("Time's up!");
+            timerEl.textContent = "TIME IS UP";
         }
     }, 1000);
 }
@@ -47,11 +53,13 @@ function checkAnswer(selectedOption) {
     }
     currentQuestionIndex++;
     if (currentQuestionIndex >= quizQuestions.length) {
-        alert("Complete! Check your score!")
+        answerResultEl.textContent = "Complete! Check your score!";
     } else {
         displayQuestion();
     }
 }
+
+function displayResults()
 
 var quizQuestions = [
     {
