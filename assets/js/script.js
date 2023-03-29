@@ -9,7 +9,7 @@ var showScoreButton = document.getElementById("show-score");
 var currentQuestionIndex = 0;
 var userAnswers = 0;
 var timeLeft = 60;
-
+// Timer function ends quiz when timer is up
 function startTimer() {
     timerInterval = setInterval(function () {
         if (timeLeft > 10 && timeLeft < 61) {
@@ -25,7 +25,7 @@ function startTimer() {
         }
     }, 1000);
 }
-
+// Displays each answer as a button, each button is an option, checkAnswer function runs with selected option.
 function displayQuestion() {
     var currentQuestion = quizQuestions[currentQuestionIndex];
     questionEl.textContent = currentQuestion.question;
@@ -39,7 +39,7 @@ function displayQuestion() {
         answerContainer.appendChild(answerButton);
     });
 }
-
+// checks to see if answer matches correct answer, if correct it increments userAnswers by 1. If incorrect, it deducts 10 seconds from the timer. When questions run out, the test ends.
 function checkAnswer(selectedOption) {
     var currentQuestion = quizQuestions[currentQuestionIndex];
     if (selectedOption === currentQuestion.correctAnswer) {
@@ -56,12 +56,33 @@ function checkAnswer(selectedOption) {
         displayQuestion();
     }
 }
-
+// stops timer and clears quiz.
 function endQuiz() {
     answerResultEl.textContent = "Complete! Your score is: " + userAnswers + " out of " + quizQuestions.length;
     answerContainer.innerHTML = "";
     questionEl.textContent = "";
     clearInterval(timerInterval);
+
+     // creates a form
+  var formEl = document.createElement("form");
+  var labelEl = document.createElement("label");
+  labelEl.textContent = "Enter your initials: ";
+  var inputEl = document.createElement("input");
+  inputEl.type = "text";
+  inputEl.id = "initials";
+  labelEl.appendChild(inputEl);
+  formEl.appendChild(labelEl);
+
+  var submitButton = document.createElement("button");
+  submitButton.type = "submit";
+  submitButton.textContent = "Submit";
+  submitButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    var initials = inputEl.value;
+    highScore(initials, userAnswers);
+  });
+  formEl.appendChild(submitButton);
+  answerContainer.appendChild(formEl);
 }
 
 
@@ -169,6 +190,9 @@ var quizQuestions = [
 ];
 
 startButton.addEventListener("click", function () {
+    timeLeft = 60;
+    currentQuestionIndex = 0;
+    userAnswers = 0;
     startTimer();
     displayQuestion();
 });
