@@ -12,18 +12,16 @@ var timeLeft = 60;
 
 function startTimer() {
     timerInterval = setInterval(function () {
-        if (timeLeft > 11 && timeLeft < 61) {
+        if (timeLeft > 10 && timeLeft < 61) {
             timeLeft--;
-            timerEl.textContent = "Time left: " + timeLeft + " seconds.";
-        } else if (timeLeft >= 3 && timeLeft < 12) {
+            timerEl.textContent = "Time left: " + timeLeft;
+        } else if (timeLeft > 0 && timeLeft < 11) {
             timeLeft--;
-            timerEl.textContent = "TIME LEFT: " + timeLeft + " SECONDS! HURRY UP!";
-        } else if (timeLeft >= 1) {
-            timeLeft--;
-            timerEl.textContent = "TIME LEFT: " + timeLeft + " SECOND! HURRY UP!";
-         } else {
+            timerEl.textContent = "TIME LEFT: " + timeLeft + " - HURRY UP!";
+        } else {
             clearInterval(timerInterval);
             timerEl.textContent = "TIME IS UP";
+            endQuiz();
         }
     }, 1000);
 }
@@ -53,13 +51,19 @@ function checkAnswer(selectedOption) {
     }
     currentQuestionIndex++;
     if (currentQuestionIndex >= quizQuestions.length) {
-        answerResultEl.textContent = "Complete! Check your score!";
+        endQuiz();
     } else {
         displayQuestion();
     }
 }
 
-function displayResults()
+function endQuiz() {
+    answerResultEl.textContent = "Complete! Your score is: " + userAnswers + " out of " + quizQuestions.length;
+    answerContainer.innerHTML = "";
+    questionEl.textContent = "";
+    clearInterval(timerInterval);
+}
+
 
 var quizQuestions = [
     {
@@ -152,11 +156,20 @@ var quizQuestions = [
         ],
         correctAnswer: "Document Object Model"
     },
+    {
+        question: "What method turns an object into a string?",
+        options: [
+            "JSON.stringify",
+            "JASON.string",
+            "JOSN.stringit",
+            "JSYN.stringy"
+        ],
+        correctAnswer: "JSON.stringify"
+    },
 ];
-
 
 startButton.addEventListener("click", function () {
     startTimer();
     displayQuestion();
 });
-submitButton.addEventListener("click", alert("Your score is: " + score));
+
