@@ -9,8 +9,10 @@ var showScoreButton = document.getElementById("show-score");
 var currentQuestionIndex = 0;
 var userAnswers = 0;
 var timeLeft = 60;
+var timerInterval;
 // Timer function ends quiz when timer is up
 function startTimer() {
+    clearInterval(timerInterval);
     timerInterval = setInterval(function () {
         if (timeLeft > 10 && timeLeft < 61) {
             timeLeft--;
@@ -190,9 +192,9 @@ var quizQuestions = [
 ];
 
 startButton.addEventListener("click", function () {
-    timeLeft = 60;
     currentQuestionIndex = 0;
     userAnswers = 0;
+    timeLeft = 60
     startTimer();
     displayQuestion();
 });
