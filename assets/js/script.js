@@ -6,6 +6,7 @@ var answerResultEl = document.getElementById("answer result")
 var resultsContainer = document.getElementById("score");
 var timerEl = document.getElementById("timer");
 var showScoreButton = document.getElementById("show-score");
+var highScores = [];
 var currentQuestionIndex = 0;
 var userAnswers = 0;
 var timeLeft = 60;
@@ -86,7 +87,20 @@ function endQuiz() {
   formEl.appendChild(submitButton);
   answerContainer.appendChild(formEl);
 }
-
+function highScore() {
+    var initials = document.getElementById("initials").value;
+    highScores.push({initials: initials, score: userAnswers});
+    highScores.sort(function(a, b) {
+        return b.score - a.score;
+    }); 
+    var highScoreList = document.createElement("ol");
+    highScores.forEach(function(score) {
+        var listItem = document.createElement("li");
+        listItem.textContent = score.initials + " - " + score.score;
+        highScoreList.appendChild(listItem);
+});
+resultsContainer.appendChild(highScoreList);
+}
 
 var quizQuestions = [
     {
