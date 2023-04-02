@@ -6,13 +6,16 @@ var answerResultEl = document.getElementById("answer result")
 var resultsContainer = document.getElementById("score");
 var timerEl = document.getElementById("timer");
 var showScoreButton = document.getElementById("show-score");
+var clearScoreButton = document.getElementById("clear-score");
 var highScores = [];
+var highScoresShown = false;
 var submittedInitials = [];
 var currentQuestionIndex = 0;
 var userAnswers = 0;
 var timeLeft = 60;
 var timerInterval;
 var submitButtonClicked = false;
+var scoresButtonClicked = false;
 var highScoreAdded = false;
 // Timer function ends quiz when timer is up
 function startTimer() {
@@ -33,6 +36,7 @@ function startTimer() {
 }
 // Displays each answer as a button, each button is an option, checkAnswer function runs with selected option.
 function displayQuestion() {
+    resultsContainer.style.display = "none";
     var currentQuestion = quizQuestions[currentQuestionIndex];
     questionEl.textContent = currentQuestion.question;
     answerContainer.innerHTML = "";
@@ -64,6 +68,7 @@ function checkAnswer(selectedOption) {
 }
 // stops timer and clears quiz.
 function endQuiz() {
+    resultsContainer.style.display = "";
     answerResultEl.textContent = "Complete! Your score is: " + userAnswers + " out of " + quizQuestions.length;
     answerContainer.innerHTML = "";
     questionEl.textContent = "";
@@ -88,6 +93,7 @@ function endQuiz() {
             var initials = inputEl.value;
             highScore(initials, userAnswers);
             submitButtonClicked = true;
+            submitButton.disabled = true;
         }
     });
     formEl.appendChild(submitButton);
@@ -96,29 +102,46 @@ function endQuiz() {
 
 function highScore() {
     var initials = document.getElementById("initials").value;
-    highScores.push({ initials: initials, score: userAnswers });
+    var userScore = userAnswers;
+    highScores.push({ initials: initials, score: userScore });
     highScores.sort(function (a, b) {
         return b.score - a.score;
     });
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+}
 
-    var highScoreList;
-
-    if (!highScoreAdded) {
+function showHighScores() {
+    // retrieve high scores from storage
+    if (!scoresButtonClicked) {
+        var highScoresFromStorage = JSON.parse(localStorage.getItem("highScores"));
+        if (!highScoresFromStorage) {
+            questionEl.textContent = "No high scores yet!";
+            return;
+        };
+        showScoreButton.disabled = true;
+        scoresButtonClicked = true;
+        // create an ordered list of high scores
         var highScoreList = document.createElement("ol");
-        highScores.forEach(function (score) {
+        highScoresFromStorage.forEach(function (score) {
             var listItem = document.createElement("li");
             listItem.textContent = score.initials + " - " + score.score;
             highScoreList.appendChild(listItem);
         });
+
+        // append the high score list to the results container
         resultsContainer.appendChild(highScoreList);
-        highScoreAdded = true;
-    } else {
-        highScoreList = resultsContainer.querySelector("ol");
-        var listItem = document.createElement("li");
-        var lastItem = highScoreList.lastChild;
-        listItem.textContent = initials + " - " + highScores[highScores.length - 1].score;
-        lastItem.after(listItem);
+        setTimeout(function () {
+            highScoreList.style.display = "none";
+            showScoreButton.disabled = false;
+            scoresButtonClicked = false;
+        }, 5000);
     }
+}
+
+function clearHighScores() {
+    localStorage.removeItem("highScores");
+    showScoreButton.disabled = false;
+    scoresButtonClicked = false;
 }
 
 var quizQuestions = [
@@ -231,4 +254,11 @@ startButton.addEventListener("click", function () {
     startTimer();
     displayQuestion();
 });
+// Recalls the high score list when the "show-score" VIEW HIGH SCORES button is clicked
+showScoreButton.addEventListener("click", function () {
+    showHighScores();
+});
+clearScoreButton.addEventListener("click", clearHighScores);
+
+
 
