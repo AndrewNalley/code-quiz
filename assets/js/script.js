@@ -81,6 +81,7 @@ function endQuiz() {
     var submitButton = document.createElement("button");
     submitButton.type = "submit";
     submitButton.textContent = "Submit";
+    submitButtonClicked = false;
     submitButton.addEventListener("click", function (event) {
         event.preventDefault();
         if (!submitButtonClicked) {
