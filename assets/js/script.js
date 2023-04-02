@@ -7,10 +7,13 @@ var resultsContainer = document.getElementById("score");
 var timerEl = document.getElementById("timer");
 var showScoreButton = document.getElementById("show-score");
 var highScores = [];
+var submittedInitials = [];
 var currentQuestionIndex = 0;
 var userAnswers = 0;
 var timeLeft = 60;
 var timerInterval;
+var submitButtonClicked = false;
+var highScoreAdded = false;
 // Timer function ends quiz when timer is up
 function startTimer() {
     clearInterval(timerInterval);
@@ -65,41 +68,56 @@ function endQuiz() {
     answerContainer.innerHTML = "";
     questionEl.textContent = "";
     clearInterval(timerInterval);
+    // creates a form
+    var formEl = document.createElement("form");
+    var labelEl = document.createElement("label");
+    labelEl.textContent = "Enter your initials: ";
+    var inputEl = document.createElement("input");
+    inputEl.type = "text";
+    inputEl.id = "initials";
+    labelEl.appendChild(inputEl);
+    formEl.appendChild(labelEl);
 
-     // creates a form
-  var formEl = document.createElement("form");
-  var labelEl = document.createElement("label");
-  labelEl.textContent = "Enter your initials: ";
-  var inputEl = document.createElement("input");
-  inputEl.type = "text";
-  inputEl.id = "initials";
-  labelEl.appendChild(inputEl);
-  formEl.appendChild(labelEl);
-
-  var submitButton = document.createElement("button");
-  submitButton.type = "submit";
-  submitButton.textContent = "Submit";
-  submitButton.addEventListener("click", function(event) {
-    event.preventDefault();
-    var initials = inputEl.value;
-    highScore(initials, userAnswers);
-  });
-  formEl.appendChild(submitButton);
-  answerContainer.appendChild(formEl);
+    var submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.textContent = "Submit";
+    submitButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (!submitButtonClicked) {
+            var initials = inputEl.value;
+            highScore(initials, userAnswers);
+            submitButtonClicked = true;
+        }
+    });
+    formEl.appendChild(submitButton);
+    answerContainer.appendChild(formEl);
 }
+
 function highScore() {
     var initials = document.getElementById("initials").value;
-    highScores.push({initials: initials, score: userAnswers});
-    highScores.sort(function(a, b) {
+    highScores.push({ initials: initials, score: userAnswers });
+    highScores.sort(function (a, b) {
         return b.score - a.score;
-    }); 
-    var highScoreList = document.createElement("ol");
-    highScores.forEach(function(score) {
+    });
+
+    var highScoreList;
+
+    if (!highScoreAdded) {
+        var highScoreList = document.createElement("ol");
+        highScores.forEach(function (score) {
+            var listItem = document.createElement("li");
+            listItem.textContent = score.initials + " - " + score.score;
+            highScoreList.appendChild(listItem);
+        });
+        resultsContainer.appendChild(highScoreList);
+        highScoreAdded = true;
+    } else {
+        highScoreList = resultsContainer.querySelector("ol");
         var listItem = document.createElement("li");
-        listItem.textContent = score.initials + " - " + score.score;
-        highScoreList.appendChild(listItem);
-});
-resultsContainer.appendChild(highScoreList);
+        var lastItem = highScoreList.lastChild;
+        listItem.textContent = initials + " - " + highScores[highScores.length - 1].score;
+        lastItem.after(listItem);
+    }
 }
 
 var quizQuestions = [
