@@ -80,6 +80,8 @@ function endQuiz() {
     var inputEl = document.createElement("input");
     inputEl.type = "text";
     inputEl.id = "initials";
+    inputEl.maxLength = 3;
+    inputEl.pattern = "[a-zA-Z]+";
     labelEl.appendChild(inputEl);
     formEl.appendChild(labelEl);
 
