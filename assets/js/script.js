@@ -124,7 +124,7 @@ function showHighScores() {
         var highScoreList = document.createElement("ol");
         highScoresFromStorage.forEach(function (score) {
             var listItem = document.createElement("li");
-            listItem.textContent = score.initials + " - " + score.score;
+            listItem.textContent = score.initials + " -> " + score.score;
             highScoreList.appendChild(listItem);
         });
 
