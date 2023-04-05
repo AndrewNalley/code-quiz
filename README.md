@@ -23,6 +23,8 @@ The quiz: Each question displays four answers as buttons. If you click the right
 
 The quiz ends either when there are no more questions or when the timer is ended. A field to enter initials and a submit button will appear. When you type in intitials and hit submit, your score and initials will be added to the local memory, and will display on the high score list if the button is clicked. 
 
+Live Site: https://andrewnalley.github.io/code-quiz/
+
 
 
 ![during the quiz](assets/images/quiz-countdown.png)
