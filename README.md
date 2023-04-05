@@ -9,7 +9,6 @@ Provide a short description explaining the what, why, and how of your project. U
 
 ## Table of Contents
 
-If your README is long, add a table of contents to make it easy for users to find what they need.
 
 - [Usage](#usage)
 - [Credits](#credits)
@@ -81,7 +80,6 @@ SOFTWARE.
 
 ---
 
-🏆 The previous sections are the bare minimum, and your project will ultimately determine the content of this document. You might also want to consider adding the following sections.
 
 
 ## Features
@@ -90,4 +88,6 @@ HTML
 CSS
 JavaScript
 Bootstrap
+Timer function
+Local memory usage
 
