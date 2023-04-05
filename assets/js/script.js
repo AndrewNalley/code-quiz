@@ -124,6 +124,7 @@ function showHighScores() {
         scoresButtonClicked = true;
         // create an ordered list of high scores
         var highScoreList = document.createElement("ol");
+        highScoreList.textContent = "🏆 HIGH SCORES 🏆"
         highScoresFromStorage.forEach(function (score) {
             var listItem = document.createElement("li");
             listItem.textContent = score.initials + " -> " + score.score;
