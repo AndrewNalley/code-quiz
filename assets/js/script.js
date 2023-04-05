@@ -1,3 +1,5 @@
+// Define global variables here
+// Access DOM by IDs
 var startButton = document.getElementById("start");
 var quizContainer = document.getElementById("quiz-container");
 var questionEl = document.getElementById("question");
@@ -17,7 +19,7 @@ var timerInterval;
 var submitButtonClicked = false;
 var scoresButtonClicked = false;
 var highScoreAdded = false;
-// Timer function ends quiz when timer is up
+// Timer function ends quiz and calls endQuiz() when timer is up. Displays urgent text when time is short.
 function startTimer() {
     clearInterval(timerInterval);
     timerInterval = setInterval(function () {
@@ -80,11 +82,11 @@ function endQuiz() {
     var inputEl = document.createElement("input");
     inputEl.type = "text";
     inputEl.id = "initials";
+    //allows only 3 characters
     inputEl.maxLength = 3;
-    inputEl.pattern = "[a-zA-Z]+";
     labelEl.appendChild(inputEl);
     formEl.appendChild(labelEl);
-
+    // creates button that when clicked, passes user initials and answer number to highScore function
     var submitButton = document.createElement("button");
     submitButton.type = "submit";
     submitButton.textContent = "Submit";
@@ -101,7 +103,7 @@ function endQuiz() {
     formEl.appendChild(submitButton);
     answerContainer.appendChild(formEl);
 }
-
+    // stores user initials and high scores in local memory
 function highScore() {
     var initials = document.getElementById("initials").value;
     var userScore = userAnswers;
@@ -111,9 +113,8 @@ function highScore() {
     });
     localStorage.setItem("highScores", JSON.stringify(highScores));
 }
-
-function showHighScores() {
     // retrieve high scores from storage
+function showHighScores() {
     if (!scoresButtonClicked) {
         var highScoresFromStorage = JSON.parse(localStorage.getItem("highScores"));
         if (!highScoresFromStorage) {
@@ -131,7 +132,7 @@ function showHighScores() {
             highScoreList.appendChild(listItem);
         });
 
-        // append the high score list to the results container
+        // append the high score list to the results container, times out after 5 seconds
         resultsContainer.appendChild(highScoreList);
         setTimeout(function () {
             highScoreList.style.display = "none";
@@ -140,13 +141,13 @@ function showHighScores() {
         }, 5000);
     }
 }
-
+    // when clear high scores button is clicked, the high scores are removed from local memory
 function clearHighScores() {
     localStorage.removeItem("highScores");
     showScoreButton.disabled = false;
     scoresButtonClicked = false;
 }
-
+    // All questions stored in an array
 var quizQuestions = [
     {
         question: "How do you declare a JavaScript variable?",
@@ -249,7 +250,7 @@ var quizQuestions = [
         correctAnswer: "JSON.stringify"
     },
 ];
-
+// starts quiz, resets timer, and answer number count
 startButton.addEventListener("click", function () {
     currentQuestionIndex = 0;
     userAnswers = 0;
@@ -261,6 +262,7 @@ startButton.addEventListener("click", function () {
 showScoreButton.addEventListener("click", function () {
     showHighScores();
 });
+// clears high scores
 clearScoreButton.addEventListener("click", clearHighScores);
 
 

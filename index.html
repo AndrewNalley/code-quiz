@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--link generic css file here-->
     <link rel="stylesheet" href="assets/css/style.css">
+    <!--link bootstrap here-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <title>JavaScript Code Quiz</title>
@@ -15,15 +17,19 @@
     <div class="container">
         <header class="d-flex justify-content-between align-items-center">
             <div>
+                <!--rounded bootsrap start button-->
                 <button id="start" class="btn btn-primary btn-rounded w-100 w-lg-25">START</button>
             </div>
+            <!--timer set to the top right hand side-->
             <div class="mt-3 mt-lg-0">
                 <section id="timer">Time: 60 seconds</section>
             </div>
         </header>
         <main>
             <div class="row">
+                <!--Adjusts to different screen sizes-->
                 <div class="col-12 col-lg-6">
+                    <!--Places quiz information inside a nice bootstrap card class-->
                     <div class="card h-100">
                         <div class="card-header">JavaScript Code Quiz!</div>
                         <div class="card-body" style="height: 300px;">
@@ -35,20 +41,22 @@
                                 </div>
                             </section>
                         </div>
+                        <!--High scores are shown in the card footer when button is clicked-->
                         <div class="card-footer">
                             <div class="container-md">
-                              <section id="score" class="d-flex justify-content-start align-items-center">
-                                <button id="show-score" class="btn btn-primary btn-rounded w-20 w-lg-25">VIEW HIGH SCORES</button>
-                                <div id="initials" class="justify-content-right"></div>
-                                <button id="clear-score" class="btn btn-primary btn-rounded w-20 w-lg-25">CLEAR SCORES</button>
-                              </section>
+                                <section id="score" class="d-flex justify-content-start align-items-center">
+                                    <button id="show-score" class="btn btn-primary btn-rounded w-20 w-lg-25">VIEW HIGH
+                                        SCORES</button>
+                                    <div id="initials" class="justify-content-right"></div>
+                                    <button id="clear-score" class="btn btn-primary btn-rounded w-20 w-lg-25">CLEAR
+                                        SCORES</button>
+                                </section>
                             </div>
-                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
-
     </div>
     <script src="assets/js/script.js"></script>
 </body>
